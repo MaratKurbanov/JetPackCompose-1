@@ -4,11 +4,28 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.LocalContentAlpha
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -16,12 +33,9 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,7 +46,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.data.impl.FakePetsRepository
 import com.example.androiddevchallenge.model.Dog
 import com.example.androiddevchallenge.ui.theme.PetTheme
-
 
 @Composable
 fun PetProfile(dog: Dog, modifier: Modifier = Modifier) {
@@ -90,7 +103,7 @@ fun PetProfile(dog: Dog, modifier: Modifier = Modifier) {
 @Composable
 fun PetDetail(navController: NavController, petTag: String) {
     val repo = FakePetsRepository()
-    val pet = repo.getPet(petTag);
+    val pet = repo.getPet(petTag)
 
     Scaffold(
         topBar = {
@@ -99,9 +112,11 @@ fun PetDetail(navController: NavController, petTag: String) {
                     Text(text = "Pet Details")
                 },
                 navigationIcon = {
-                    IconButton(onClick = {
-                        navController.navigate("home")
-                    }) {
+                    IconButton(
+                        onClick = {
+                            navController.navigate("home")
+                        }
+                    ) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
                             contentDescription = "Go back to Home page",
@@ -158,14 +173,17 @@ fun PetDetail(navController: NavController, petTag: String) {
                 Text("${pet.details}", style = MaterialTheme.typography.body1)
 
                 Button(
-                    modifier = Modifier.padding(10.dp).fillMaxWidth(),
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .fillMaxWidth(),
                     onClick = {
-                    val browserX = Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(pet.adoptLink)
-                    )
-                    startActivity(context, browserX, null)
-                }) {
+                        val browserX = Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(pet.adoptLink)
+                        )
+                        startActivity(context, browserX, null)
+                    }
+                ) {
                     Text("Adopt me!")
                 }
             }

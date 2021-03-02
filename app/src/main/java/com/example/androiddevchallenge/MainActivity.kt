@@ -22,7 +22,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -86,14 +90,18 @@ fun PageNavigation() {
     }
 }
 
-
 @Composable
 fun PetList(pets: List<Dog>, navController: NavController, modifier: Modifier = Modifier) {
     LazyColumn(modifier = modifier) {
         items(items = pets) { pet ->
-            PetProfile(pet, Modifier.clickable(onClick = {
-                navController.navigate("detail/${pet.petTag}")
-            }))
+            PetProfile(
+                pet,
+                Modifier.clickable(
+                    onClick = {
+                        navController.navigate("detail/${pet.petTag}")
+                    }
+                )
+            )
         }
     }
 }
